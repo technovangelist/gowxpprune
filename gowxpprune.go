@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -166,8 +167,12 @@ func show_main_prompt() {
 func main() {
 	loopit := true
 	// reader := bufio.NewReader(os.Stdin)
-
-	rss = ParseWXP("ddtest.xml")
+	var input_file_name string
+	var output_file_name string
+	flag.StringVar(&input_file_name, "i", "", "Input file name")
+	flag.StringVar(&output_file_name, "o", "newfile.xml", "Output file name")
+	flag.Parse()
+	rss = ParseWXP(input_file_name)
 	create_maps()
 	fmt.Println("Welcome to the WXP Pruner")
 	show_main_prompt()
@@ -195,7 +200,7 @@ func main() {
 	// rss.Channel.Categories = append(rss.Channel.Categories, Category{TermId: 555, NiceName: "fudge"})
 	// delete_category(13)
 	write_new_wxp(rss)
-	ns_cleanup("newfile.xml")
+	ns_cleanup(output_file_name)
 }
 
 func delete_command() {
