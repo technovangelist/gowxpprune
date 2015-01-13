@@ -32,6 +32,8 @@ type xmlnsstring string
 
 var starting_status string
 
+var site_url string
+
 var rss RSS
 
 type Channel struct {
@@ -48,6 +50,7 @@ type Channel struct {
 	Categories  []*Category `xml:"category"`
 	Tags        []*Tag      `xml:"tag"`
 	Terms       []*Term     `xml:"term"`
+	Generator   string      `xml:"generator"`
 	Items       []*Item     `xml:"item"`
 }
 
@@ -96,7 +99,7 @@ func write_new_wxp(rss RSS) {
 
 	xmlWriter := io.Writer(file)
 	enc := xml.NewEncoder(xmlWriter)
-	enc.Indent("  ", "    ")
+	enc.Indent("  ", "  ")
 	if err := enc.Encode(rss); err != nil {
 		fmt.Printf("error: %v\n", err)
 	}
@@ -174,6 +177,8 @@ func main() {
 	flag.Parse()
 	rss = ParseWXP(input_file_name)
 	create_maps()
+	site_url = strings.TrimPrefix(strings.TrimPrefix(string(rss.Channel.Link), "http://"), "https://")
+
 	fmt.Println("Welcome to the WXP Pruner")
 	show_main_prompt()
 	cleanup_unused_attachments()
