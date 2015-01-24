@@ -2,4 +2,4 @@ When working with Wordpress, its always best to develop locally and then deploy.
 
 This is the beginning of a tool that will cleanup your WXP (Wordpress Export file). It starts by removing all the attachments you aren't using. Then you can delete additional posts by entering the post ids, or a range of post ids. 
 
-Its still a work in progress, but it helped me get the Datadog export from 1000 attachments down to 300 and then further to 100, going from 100 posts to 17. Works pretty well.
+Its still a work in progress, but it helped me get the Datadog export from 1000 attachments down to 300 and then further to 100, going from 100 posts to 17. Works pretty well. x
